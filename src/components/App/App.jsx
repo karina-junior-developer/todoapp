@@ -16,7 +16,7 @@ export const App = () => {
 	return (
 		<div className={styles.mainBlock}>
 			<h1>To-Do List </h1>
-			<div className="inputAndButtonBlock">
+			<div className={styles.inputAndButtonBlock}>
 				<input type="text" name="todo task" placeholder="Add your todo" />
 				<button className={styles.addButton}>Add</button>
 			</div>
