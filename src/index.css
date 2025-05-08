@@ -1,0 +1,18 @@
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: linear-gradient(to right, #e4d973, #eec10e);
+	font-family: sans-serif;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+	background-color: white !important;
+	transition: background-color 5000s ease-in-out 0s;
+	-webkit-text-fill-color: #000 !important;
+}
