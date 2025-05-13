@@ -1,0 +1,38 @@
+.searchBlock {
+	margin-top: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+}
+
+.searchInput {
+	padding: 0.5rem;
+	border: none;
+	outline: none;
+	width: 350px;
+	margin-right: 5px;
+	color: #595959;
+	font-size: 13px;
+	background-color: rgba(232, 230, 230, 0.847);
+	border-radius: 10px;
+}
+
+.sortButton {
+	margin-right: 5px;
+	border: none;
+	outline: none;
+	border-radius: 10px;
+	height: 31px;
+	width: 60px;
+	font-size: 13px;
+	background-color: rgba(232, 230, 230, 0.847);
+	color: #595959;
+	transition: color 0.1s linear;
+	cursor: pointer;
+}
+
+.sortButton:hover {
+	background-color: #8e54ba;
+	color: white;
+}

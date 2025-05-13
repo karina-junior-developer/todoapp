@@ -1,0 +1,37 @@
+.spanTitle {
+	padding: 5px;
+	width: 70%;
+	display: inline-block;
+	margin-right: 15px;
+	color: #595959;
+}
+
+.buttons {
+	width: 30%;
+	justify-content: flex-end;
+}
+
+.deleteButton,
+.editButton {
+	margin-right: 5px;
+	border: none;
+	outline: none;
+	border-radius: 10px;
+	height: 31px;
+	width: 60px;
+	font-size: 13px;
+	background-color: rgba(232, 230, 230, 0.847);
+	color: #595959;
+	transition: color 0.1s linear;
+	cursor: pointer;
+}
+
+.deleteButton:hover {
+	background-color: #f32b2b;
+	color: white;
+}
+
+.editButton:hover {
+	background-color: #e2c20d;
+	color: white;
+}
