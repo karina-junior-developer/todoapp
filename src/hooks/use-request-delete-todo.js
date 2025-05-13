@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export const useRequestDeleteTodo = (setRefreshTodoItems, refreshTodoItems, todosURL) => {
-	const [isDeletingTodo, setIsDeletingTodo] = useState(false); // for process of deleting todo
+	const [isDeletingTodo, setIsDeletingTodo] = useState(false); // for deleting process
 
 	const requestDeleteTodo = (id) => {
 		setIsDeletingTodo(true);

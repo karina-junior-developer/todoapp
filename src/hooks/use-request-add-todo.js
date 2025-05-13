@@ -3,7 +3,7 @@ import { useState } from 'react';
 export const useRequestAddTodo = (todosURL, setRefreshTodoItems, refreshTodoItems) => {
 	const [todoValue, setTodoValue] = useState(''); // for target.value, main input
 	const [error, setError] = useState(null); // for empty value error on main todo input
-	const [isAddingTodo, setIsAddingTodo] = useState(false); // for process of adding new todo
+	const [isAddingTodo, setIsAddingTodo] = useState(false); // for adding new todo process
 
 	const onChangeTodoTask = (event) => {
 		setTodoValue(event.target.value);
