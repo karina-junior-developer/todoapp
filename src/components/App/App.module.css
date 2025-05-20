@@ -1,5 +1,5 @@
 .mainBlock {
-	background-color: rgb(255, 255, 255);
+	background-color: #e4db88;
 	border-radius: 15px;
 	width: 500px;
 	min-height: 150px;
@@ -19,7 +19,7 @@
 	width: 70%;
 	display: inline-block;
 	margin-right: 15px;
-	color: #595959;
+	color: black;
 }
 
 .link {
@@ -29,7 +29,7 @@
 }
 
 .link:hover {
-	font-weight: bolder;
+	color: rgb(62, 62, 5);
 }
 
 h1 {
@@ -53,7 +53,6 @@ li {
 	font-size: 14px;
 	width: 470px;
 	display: flex;
-
 	margin-left: 5px;
 }
 

@@ -14,7 +14,7 @@ export const SearchBlock = ({
 				className={styles.searchInput}
 				type="text"
 				name="searchBar"
-				placeholder="Search for To-do tasks..."
+				placeholder="Search for To-do task..."
 				value={searchedTodoValue}
 				onChange={onChangeSearchedValue}
 			/>

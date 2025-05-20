@@ -20,7 +20,7 @@ export const MainInputBlock = ({
 					name="todoTask"
 					value={todoValue}
 					onChange={onChangeTodoTask}
-					placeholder="Add your To-do"
+					placeholder="Add your To-do task"
 					onKeyDown={onKeyDownTodoTask}
 				/>
 				<button

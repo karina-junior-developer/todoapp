@@ -17,8 +17,8 @@
 	width: 280px;
 	display: inline-block;
 	margin-right: 15px;
-	color: #595959;
-	font-size: 15px;
+	color: black;
+	font-size: 14px;
 }
 
 .successBlock {
@@ -58,24 +58,21 @@
 	height: 31px;
 	width: 90px;
 	font-size: 13px;
-	background-color: rgba(146, 178, 245, 0.847);
 	color: #595959;
 	transition: color 0.1s linear;
 	cursor: pointer;
 }
 
 .backButton:hover {
-	background-color: rgb(149, 149, 158);
+	background-color: rgba(186, 206, 248, 0.847);
 }
 
 .deleteButton:hover {
-	background-color: #f32b2b;
-	color: white;
+	background-color: #fab5b5;
 }
 
 .editButton:hover {
-	background-color: #e2c20d;
-	color: white;
+	background-color: #fceb88;
 }
 
 .taskBlock {
@@ -114,7 +111,7 @@
 	outline: none;
 	width: 250px;
 	margin-right: 5px;
-	color: #595959;
+	color: black;
 	font-size: 14px;
 	background-color: rgba(232, 230, 230, 0.847);
 	border-radius: 10px;
@@ -145,11 +142,9 @@
 }
 
 .saveButton:hover {
-	background-color: #77a415;
-	color: white;
+	background-color: #bad189;
 }
 
 .cancelButton:hover {
-	background-color: #f32b2b;
-	color: white;
+	background-color: #fab5b5;
 }
