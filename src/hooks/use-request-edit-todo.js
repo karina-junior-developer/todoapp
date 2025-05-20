@@ -1,7 +1,12 @@
 import { useState } from 'react';
 
-export const useRequestEditTodo = (todosURL, setRefreshTodoItems, refreshTodoItems) => {
-	const [isEditingTodo, setIsEditingTodo] = useState(false); // for adjustment process, process explanation - Process
+export const useRequestEditTodo = (
+	todosURL,
+	setRefreshTodoItems,
+	refreshTodoItems,
+	setTodos,
+) => {
+	const [isEditingTodo, setIsEditingTodo] = useState(false); // for adjustment process - Process
 	const [editedTodoValue, setEditedTodoValue] = useState(''); // for adjustment process, target.value - Value
 	const [editedTodoId, setEditedTodoId] = useState(null); // for adjustment process - Id
 	const [newError, setNewError] = useState(null); // for adjustment process - Error
@@ -19,26 +24,40 @@ export const useRequestEditTodo = (todosURL, setRefreshTodoItems, refreshTodoIte
 		setNewError(null);
 	};
 
-	const editAndSaveTodo = (id) => {
+	const editAndSaveTodo = async (id) => {
 		if (editedTodoValue.trim() === '') {
 			setNewError('Value cannot be empty');
 			return;
 		}
 
-		fetch(`${todosURL}/${id}`, {
-			method: 'PATCH',
-			headers: { 'Content-Type': 'application/json;charset=utf-8' },
-			body: JSON.stringify({
-				title: editedTodoValue,
-			}),
-		})
-			.then((rawTodo) => rawTodo.json())
-			.then((finalTodo) => {
-				console.log('Todo successfully adjusted!', finalTodo);
-				setNewError(null);
-				setRefreshTodoItems(!refreshTodoItems);
-			})
-			.finally(() => cancelEditing());
+		try {
+			const response = await fetch(`${todosURL}/${id}`, {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json;charset=utf-8',
+				},
+				body: JSON.stringify({ title: editedTodoValue }),
+			});
+
+			if (!response.ok) {
+				throw new Error(`Failed to save. Status: ${response.status}`);
+			}
+
+			const updatedTodo = await response.json();
+			console.log('Updated todo:', updatedTodo);
+
+			setTodos((prevTodos) =>
+				prevTodos.map((todo) =>
+					todo.id === id ? { ...todo, title: updatedTodo.title } : todo,
+				),
+			);
+
+			setNewError(null);
+			cancelEditing();
+		} catch (err) {
+			console.error('Save failed due to following error:', err);
+			setNewError('Could not save the todo. Please try again later.');
+		}
 	};
 
 	const onChangeEditingTodoTask = (event) => {

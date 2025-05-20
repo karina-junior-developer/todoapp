@@ -1,0 +1,19 @@
+.appPage {
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 200px;
+}
+
+.link {
+	color: #151212;
+	text-decoration: none;
+	font-family: sans-serif;
+	font-size: 22px;
+	text-transform: uppercase;
+}
+
+.link:hover {
+	cursor: pointer;
+	color: #b19407;
+}

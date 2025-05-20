@@ -1,8 +1,6 @@
 import {
 	useRequestAddTodo,
-	useRequestDeleteTodo,
 	useRequestGetTodos,
-	useRequestEditTodo,
 	useSortTodos,
 	useSearchTodos,
 } from '../../hooks/index';
@@ -12,11 +10,12 @@ import { useState } from 'react';
 import { SearchBlock } from '../SearchBlock/SearchBlock';
 import { MainInputBlock } from '../MainInputBlock/MainInputBlock';
 import { LoadingBlock } from '../LoadingBlock/LoadingBlock';
-import { EditInputBlock } from '../EditInputBlock/EditInputBlock';
-import { TodoListBlock } from '../TodoListBlock/TodoListBlock';
+import { NavLink } from 'react-router-dom';
+import { useContext } from 'react';
+import { TodoContext } from '../../contexts/TodoContext';
 
 export const App = () => {
-	const [todos, setTodos] = useState([]); // for todos []
+	const { todos, setTodos } = useContext(TodoContext); // for todos []
 	const [refreshTodoItems, setRefreshTodoItems] = useState(false); // for updating todos
 
 	const [originalTodos, setOriginalTodos] = useState([]); // for sorting - saving original []
@@ -39,28 +38,8 @@ export const App = () => {
 		todoValue,
 	} = useRequestAddTodo(todosURL, setRefreshTodoItems, refreshTodoItems);
 
-	// Delete todo task from the list - DONE
-	const { requestDeleteTodo, isDeletingTodo } = useRequestDeleteTodo(
-		setRefreshTodoItems,
-		refreshTodoItems,
-		todosURL,
-	);
-
-	// Edit todo task - DONE
-	const {
-		editedTodoValue,
-		isEditingTodo,
-		editedTodoId,
-		newError,
-		startEditing,
-		cancelEditing,
-		editAndSaveTodo,
-		onChangeEditingTodoTask,
-		onKeyDownEditingTask,
-	} = useRequestEditTodo(todosURL, setRefreshTodoItems, refreshTodoItems);
-
 	// Search - DONE
-	const { onChangeSearchedValue, foundValues, searchedTodoValue } =
+	const { onChangeSearchedValue, searchedTodoValue, foundValues } =
 		useSearchTodos(todos);
 
 	// Sort - DONE
@@ -95,36 +74,20 @@ export const App = () => {
 						<ul>
 							{(searchedTodoValue ? foundValues : todos).map(
 								({ title, id }) => {
+									const displayableTitle =
+										title.length > 10
+											? title.slice(0, 10) + '...'
+											: title;
 									return (
 										<li key={id}>
-											{isEditingTodo && editedTodoId === id ? (
-												<EditInputBlock
-													newError={newError}
-													editedTodoValue={editedTodoValue}
-													onChangeEditingTodoTask={
-														onChangeEditingTodoTask
-													}
-													onKeyDownEditingTask={(event) =>
-														onKeyDownEditingTask(event, id)
-													}
-													editAndSaveTodo={() =>
-														editAndSaveTodo(id)
-													}
-													cancelEditing={cancelEditing}
-												/>
-											) : (
-												<TodoListBlock
-													title={title}
-													requestDeleteTodo={() =>
-														requestDeleteTodo(id)
-													}
-													isDeletingTodo={isDeletingTodo}
-													startEditing={() =>
-														startEditing(id, title)
-													}
-													isEditingTodo={isEditingTodo}
-												/>
-											)}
+											<span className={styles.spanTitle}>
+												<NavLink
+													to={`/task/${id}`}
+													className={styles.link}
+												>
+													{displayableTitle}
+												</NavLink>
+											</span>
 										</li>
 									);
 								},

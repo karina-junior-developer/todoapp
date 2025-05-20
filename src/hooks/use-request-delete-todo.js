@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export const useRequestDeleteTodo = (setRefreshTodoItems, refreshTodoItems, todosURL) => {
-	const [isDeletingTodo, setIsDeletingTodo] = useState(false); // for deleting process
+	const [isDeletingTodo, setIsDeletingTodo] = useState(false);
 
 	const requestDeleteTodo = (id) => {
 		setIsDeletingTodo(true);
@@ -9,12 +9,18 @@ export const useRequestDeleteTodo = (setRefreshTodoItems, refreshTodoItems, todo
 		fetch(`${todosURL}/${id}`, {
 			method: 'DELETE',
 		})
-			.then((rawTodo) => rawTodo.json())
-			.then((finalTodo) => {
-				console.log('Todo deleted', finalTodo);
+			.then((res) => {
+				if (!res.ok) {
+					throw new Error('Failed to delete todo');
+				}
+				console.log(`Todo ${id} deleted successfully`);
 				setRefreshTodoItems(!refreshTodoItems);
+			})
+			.catch((err) => {
+				console.error('Delete failed:', err.message);
 			})
 			.finally(() => setIsDeletingTodo(false));
 	};
+
 	return { requestDeleteTodo, isDeletingTodo };
 };
