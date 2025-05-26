@@ -148,3 +148,15 @@
 .cancelButton:hover {
 	background-color: #fab5b5;
 }
+
+.taskNotFound {
+	margin-top: 200px;
+	align-items: center;
+	justify-content: center;
+}
+
+.loading {
+	margin-top: 200px;
+	align-items: center;
+	justify-content: center;
+}

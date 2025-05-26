@@ -1,14 +1,11 @@
 import styles from './Task.module.css';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { TodoContext } from '../../contexts/TodoContext';
 import { useRequestDeleteTodo, useRequestEditTodo } from '../../hooks/index';
 import { todosURL } from '../../constants/constants';
 
 export const Task = () => {
-	const navigate = useNavigate();
-	const [isDeleted, setIsDeleted] = useState(false);
-
 	const { refreshTodoItems, setRefreshTodoItems, todos, setTodos } =
 		useContext(TodoContext);
 
@@ -30,14 +27,43 @@ export const Task = () => {
 		onKeyDownEditingTask,
 	} = useRequestEditTodo(todosURL, setRefreshTodoItems, refreshTodoItems, setTodos);
 
+	const navigate = useNavigate();
+	const [isDeleted, setIsDeleted] = useState(false);
+	const [todoTaskFromServer, setTodoTaskFromServer] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
+
 	const { id } = useParams();
 	const numericId = Number(id);
 
-	const task = todos.find((todoTask) => String(todoTask.id) === id);
-	console.log(task);
+	//getting task from server
+	useEffect(() => {
+		if (!todos || todos.length === 0) {
+			setIsLoading(true);
+			fetch(`${todosURL}/${id}`)
+				.then((response) => response.json())
+				.then((data) => {
+					if (!data || !data.id) {
+						throw new Error('Task not found');
+					}
+					setTodoTaskFromServer(data);
+				})
+				.catch((error) => {
+					console.error(error);
+					setTodoTaskFromServer(null);
+				})
+				.finally(() => setIsLoading(false));
+		}
+	}, [id, todos]);
+
+	const existingTask = todos.find((todoTask) => String(todoTask.id) === id);
+	const task = existingTask || todoTaskFromServer;
+
+	if (isLoading) {
+		return <div className={styles.loading}>Loading...</div>;
+	}
 
 	if (!task) {
-		return <div>Task not found</div>;
+		return <div className={styles.taskNotFound}>Task not found</div>;
 	}
 
 	const handleDelete = async () => {
